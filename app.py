@@ -1,37 +1,57 @@
-# This Password-Generator created by John07-noob
-# Sep/7/2020
-
+# Author	: John07-noob
+# Date		: Sep/7/2020 (Up/Nov8/2020)
 import random
 
-# Variables
-alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-num = "0123456789"
-super = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%()[]~'"
+class User:
+	def __init__(self, passwd_range):
+		self.passwd_range = passwd_range
 
-print("Welcome to Password Generator")
-print("You want only alphabet, number or super?")
-while True:
-    # Ask user input for alpha/num/super
-    ask_user = input("Please insert here (alpha/num/super): ")
-    if ask_user == "alpha":
-        # Ask user how long password should be
-        password_range = int(input("How long you want: "))
-        # Choose random chars in alpha variable and range for the password should be (password_range)
-        x = "".join(random.choice(alpha) for i in range(password_range))
-        print("The result:", x)
-        # After print the result, this code out of loop
-        break
-    elif ask_user == "num":
-        password_range = int(input("How long you want: "))
-        # Choose random chars in num variable and range for the password should be (password_range)
-        x = "".join(random.choice(num) for i in range(password_range))
-        print("The result:", x)
-        break
-    elif ask_user == "super":
-        password_range = int(input("How long you want: "))
-        # Choose random chars in super variable and range for the password should be (password_range)
-        x = "".join(random.choice(super) for i in range(password_range))
-        print("The result:", x)
-        break
-    else:
-        print("Please insert the valid answer")
+	def alpha(self):
+		alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		return "".join(random.choice(alpha) for i in range(self.passwd_range))
+
+	def num(self):
+		num = "0123456789"
+		return "".join(random.choice(num) for i in range(self.passwd_range))
+
+	def superpass(self):
+		superpass = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%()[]~'"
+		return "".join(random.choice(superpass) for i in range(self.passwd_range))
+
+def num_input(user_input):
+	while True:
+		try:
+			user_input = int(input(user_input))
+		except ValueError:
+			print("Just Number!")
+			continue
+		else:
+			return user_input
+
+if __name__=='__main__':
+	print("Welcome to Password Generator")
+	print("1.Just Alphabet")
+	print("2.Just Number")
+	print("3.Alphabet, Number & Character")
+	while True:
+		chooice = input("Insert Here: ")
+		if chooice == "1":
+			passwd_range = num_input("How long you want: ")
+			user = User(passwd_range)
+			result = user.alpha()
+			print(f"The Result: {result}")
+			break
+		elif chooice == "2":
+			passwd_range = num_input("How long you want: ")
+			user = User(passwd_range)
+			result = user.num()
+			print(f"The Result: {result}")
+			break
+		elif chooice == "3":
+			passwd_range = num_input("How long you want: ")
+			user = User(passwd_range)
+			result = user.superpass()
+			print(f"The Result: {result}")
+			break
+		else:
+			print("Invalid Command!")
